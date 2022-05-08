@@ -6,6 +6,10 @@ class ApiError extends Error {
 	}
 	//TODO: зачем и почему статик
 	static badRequest(messsage) {
+		return new ApiError(400, messsage);
+	}
+
+	static notFound(messsage) {
 		return new ApiError(404, messsage);
 	}
 

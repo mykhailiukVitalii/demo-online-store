@@ -1,19 +1,30 @@
 const Router = require("express");
 const router = new Router();
-const userController = require("../controllers/userController")
-const authMiddleware = require("../middlewares/authMiddleware")
+const userController = require("../controllers/userController");
+// const authMiddleware = require("../middlewares/authMiddleware");
+const roleMiddleware = require("../middlewares/roleMiddleware");
+const { check } = require("express-validator");
+
 //GET methods
-router.get("/auth", authMiddleware, userController.checkUser);
+// router.get("/auth", authMiddleware, userController.checkUser); //TODO: WIP
+router.get("/users", roleMiddleware(["ADMIN"]), userController.getUsers);
 //POST methods
 router.post("/registration", userController.registration);
-router.post("/login", userController.login);
-router.post("/restore", userController.resetPassword);
-
-//old version without conroller
-// router.get("/auth", (req, res) => {
-//     res
-//         .status(200)
-//         .json({ message: "Auth works" });
-// });
+router.post(
+	"/login", 
+	[
+		check('email', "Empty Email").notEmpty(),
+		check('password', "Empty Password").notEmpty()
+	],
+	userController.login
+);
+router.post(
+	"/restore",
+	[
+		check('email', "Empty Email").notEmpty(),
+		check('password', "Empty Password").notEmpty()
+	],
+	userController.resetPassword
+);
 
 module.exports = router;
