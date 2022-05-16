@@ -1,0 +1,10 @@
+{
+  "test": {
+    "username": "root",
+    "password": "root",
+    "database": "store_test_1",
+    "host": "localhost",
+    "port": 6603,
+    "dialect": "mysql"
+  }
+}

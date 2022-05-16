@@ -50,4 +50,4 @@ describe('E2E-tests: USER login [POST /api/user/login]', function () {
         expect(res.body).toHaveProperty('token');
     });
 });
-//TODO: WIP '{"message":{"name":"SequelizeConnectionRefusedError","parent":{"errno":-111,
+//TODO: WIP '{"message":{"name":"SequelizeConnectionRefusedError","parent":{"errno":-111, - БД переключается, глянуть

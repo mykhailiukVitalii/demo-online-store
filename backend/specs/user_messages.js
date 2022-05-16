@@ -3,7 +3,8 @@ const USER_MESSAGES = {
 	noUser: "User not yet created.",
 	incorrectPwd: "The password is incorrect!",
 	notFound: "User not found!",
-	alreadyRestored: "Password is already updated. User has only one chance for updating!"
+	alreadyRestored: "Password is already updated. User has only one chance for updating!",
+	authError: "Authorised Error!"
 }
 
 module.exports = USER_MESSAGES;
