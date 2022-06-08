@@ -13,7 +13,7 @@ class ApiError extends Error {
 		return new ApiError(404, messsage);
 	}
 
-	static internl(messsage) {
+	static internal(messsage) {
 		return new ApiError(500, messsage);
 	}
 }

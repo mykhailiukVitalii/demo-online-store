@@ -5,7 +5,7 @@ class HomeController {
     async gethomepageStatic(req, res) {
         res
             .status(200)
-            .sendFile(path.resolve(__dirname, "../static", "index.html"));
+            .sendFile(path.resolve(__dirname, "../../static", "index.html"));
     }
 }
 

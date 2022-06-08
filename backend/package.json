@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "cross-env NODE_ENV=test jest ./specs/user/*.spec.js --testTimeout 30000",
-    "test:e2e": "jest ./specs/user/*.spec.js --testTimeout 30000",
+    "test": "cross-env NODE_ENV=test jest ./src/e2e-specs/user/*.spec.js --testTimeout 30000",
+    "test:e2e": "jest ./src/e2e-specs/user/*.spec.js --testTimeout 30000",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all --seeders-path ./seeders/test"
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate --migrations-path ./src/db/migrations && npx sequelize-cli db:seed:all --seeders-path ./src/db/seeders/test"
   },
   "keywords": [],
   "author": "",
