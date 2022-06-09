@@ -1,39 +1,75 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+// const bcrypt = require("bcrypt");
+// const jwt = require("jsonwebtoken");
 const { User } = require("../db/models/models");
 const ApiError = require("../errors/ApiError");
+const { generateJwt, hashPassword, bcryptComparePwd } = require("./bcryptTokenService");
 
-const generateJwt = (id, email, role) => {
-    return jwt.sign(
-        { id, email, role },
-        process.env.SECRET_KEY,
-        { expiresIn: "24h" }
-    );
-}
 
 const getUserByEmail = async (email) => {
     const user = await User.findOne({
         where: {email}
     });
 
-    return (user) ? user : ApiError.badRequest("User with this email already exist!");
+    if(!user) {
+        throw ApiError.notFound("User with this email address is not registered yet!");
+    }
+
+    return user;
+};
+
+const checkNewUserByEmail = async (email) => {
+    const candidate = await User.findOne({
+        where: {email}
+    });
+
+    if(candidate) {
+        throw ApiError.badRequest("User with this email already exist!");
+    }
 };
 
 const createUser = async (data) => {
-    const salt = await bcrypt.genSalt(process.env.BCRYPT_SALT_ROUNDS);    
+    //Check candidate
+    await checkNewUserByEmail(data.email);
+    //GET password
     const { password } = data;
-    const hashPassword = await bcrypt.hash(password, salt);
-    const newUser = { ...data, password: hashPassword };
+    //debug entered password
+    console.log("PWD->", password);
+    
+    //HASH user password
+    const hashPwd = await hashPassword(password);
+
+    const newUser = { ...data, password: hashPwd };
     const user = await User.create(newUser);
     console.log("USR1->", user.dataValues);
-    // const basket - //TODO доделать создание Корзины по дефолту
     //Generate jwt token
     const token = generateJwt(user.id, user.email, user.role);
 
-    return (user) ? { user: user.email, token } : ApiError.internal("User creation unknown error!");     
+    return {
+        user: user.email,
+        role: user.role,
+        token 
+    }
+};
+
+const loginUser = async (data) => {
+    const user = await getUserByEmail(data.email);
+    //compare pwd
+    const comparePwd = bcryptComparePwd(data.password, user.password);
+
+    if(!comparePwd) {
+        throw ApiError.badRequest("The password is incorrect!");
+    }
+    //Generate jwt token
+    const token = generateJwt(user.id, user.email, user.role);
+
+    return {
+        user: user.email,
+        token
+    };   
 };
 
 module.exports = {
     getUserByEmail,
-    createUser
+    createUser,
+    loginUser
 }

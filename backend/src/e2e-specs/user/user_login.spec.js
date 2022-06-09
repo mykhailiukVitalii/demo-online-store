@@ -21,13 +21,13 @@ describe('E2E-tests: USER login [POST /api/user/login]', function () {
         //Expected result: Status 400 + "Password or Email does not exist in the request body."
         expect(res.body.message).toEqual(USER_MESSAGES.invalidPwdEmail);
     });
-    it('Should return status 404 if user does not exist', async () => {
+    it('Should return status 404 if such "email" does not exist in the DB.', async () => {
         const res = await supertest("http://localhost:5054/api/user")
             .post('/login') 
             .send(ADMIN_CREDENTIALS.invalid)
             .set('Accept', 'application/json')
             .expect(StatusCodes.NOT_FOUND);
-        //Expected result: Status 404 + "User not yet created."
+        //Expected result: Status 404 + message
         expect(res.body.message).toEqual(USER_MESSAGES.noUser);
     });
     it('Should return status 400 if password is incorrect', async () => {
@@ -36,7 +36,7 @@ describe('E2E-tests: USER login [POST /api/user/login]', function () {
             .send(ADMIN_CREDENTIALS.wrongPassword)
             .set('Accept', 'application/json')
             .expect(StatusCodes.BAD_REQUEST);
-        //Expected result: Status 400 + "The password is incorrect!";
+        //Expected result: Status 400 + message
         expect(res.body.message).toEqual(USER_MESSAGES.incorrectPwd);
     });
     it('Should return status 200 if user exists.', async () => {

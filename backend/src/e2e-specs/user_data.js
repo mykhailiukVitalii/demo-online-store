@@ -15,6 +15,10 @@ const USER_CREDENTIALS = {
     wrongPassword: {
         email: "user1@gmail.com",
         password: "123456799"
+    },
+    newUser: {
+        email: "user777@gmail.com",
+        password: "123456789"
     }
 }
 

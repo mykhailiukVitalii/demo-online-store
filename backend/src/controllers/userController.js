@@ -1,14 +1,13 @@
+const bcrypt = require("bcrypt"); //TODO: del
+const jwt = require("jsonwebtoken"); //TODO: del
 const ApiError = require("../errors/ApiError");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const { User } = require("../db/models/models");
 const { validationResult } = require("express-validator");
 
-const { getUserByEmail , createUser } = require("../services/userQueryService")
-//TODO - move to const
-// const SALT = 5;
+const { createUser, loginUser } = require("../services/userQueryService");
+// const { bcryptComparePwd } = require("../services/bcryptTokenService");
 
-const generateJwt = (id, email, role) => {
+const generateJwt = (id, email, role) => { //TODO: del
     return jwt.sign(
         { id, email, role },
         process.env.SECRET_KEY,
@@ -20,26 +19,26 @@ class UserController {
     //TODO: description jsdoc - как описать документацию
     async registration(req, res, next) {
         try {
-            const {email, password, role} = req.body;
-
-            if(!email || !password) {
-                return next(ApiError.badRequest("Incorrect email OR pwd! Check entered data."));
+            //---Vilidation processing
+            const errors = validationResult(req)
+            //Check email & password presenting
+            if(!errors.isEmpty()) {
+                return next(ApiError.badRequest("Password or Email does not exist in the request body."));
             }
-
-            await getUserByEmail(email);
-            //debug log
-            console.log("PWD->", password);
-            const user = createUser({ email, password, role});
+            //GET email & password & role val from the request body
+            const {email, password, role} = req.body;
+            const newUser = await createUser({ email, password, role});            
+            // const basket - //TODO: доделать создание Корзины по дефолту
             //return username & token as additional info
-            return res.status(201).json(user);
-        }
-        catch(e) {
+            return res.status(201).json(newUser);
+        } catch(e) {
             return next(e);
         }        
     }
     //TODO: description jsdoc
     async login(req, res, next) {
         try {
+            //---Vilidation processing
             const errors = validationResult(req)
             //Check email & password presenting
             if(!errors.isEmpty()) {
@@ -47,22 +46,13 @@ class UserController {
             }
             //Get email & password val from the request body
             const {email, password} = req.body;
-            //find user using Sequilize findOne static method
-            const user = await User.findOne({where: {email}});
-            if(!user) {
-                return next(ApiError.notFound("User not yet created."));
-            }
-            let comparePassword = bcrypt.compareSync(password, user.password);
-            if(!comparePassword) {
-                return next(ApiError.badRequest("The password is incorrect!"));
-            }
-            //Generate jwt token
-            const token = generateJwt(user.id, user.email, user.role);
-            //TODO: return username & token as additional info
-            return res.status(200).json({user: user.email, token}); //TODO: можно ли запросы обернуть тоже в мидлваре что бы прокинуть только метод, статус и боди
+            //FInd and preparate user info
+            const lgnUser = await loginUser({ email, password });
+            //return username & token as additional info
+            return res.status(200).json(lgnUser);
         }
         catch(e) {
-            return next(ApiError.internal(e));
+            return next(e);
         }
     }
     //TODO: description jsdoc

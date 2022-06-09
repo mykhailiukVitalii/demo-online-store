@@ -5,12 +5,17 @@ const ADMIN_CREDENTIALS = {
         password: "123456789"
     },
     invalid: {
-        email: "admin1-inv",
-        password: "123456999"
+        email: "admin11@gmail.com",
+        password: "123456789"
     },
     wrongPassword: {
         email: "admin1@gmail.com",
         password: "123456799"
+    },
+    newAdmin: {
+        email: "admin777@gmail.com",
+        password: "123456789",
+        role: "ADMIN"
     }
 }
 

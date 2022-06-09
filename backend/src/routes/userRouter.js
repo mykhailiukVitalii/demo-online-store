@@ -9,7 +9,13 @@ const { check } = require("express-validator");
 // router.get("/auth", authMiddleware, userController.checkUser); //TODO: WIP
 router.get("/users", roleMiddleware(["ADMIN"]), userController.getUsers);
 //POST methods
-router.post("/registration", userController.registration);
+router.post(
+	"/registration",
+	[
+		check('email', "Empty Email").notEmpty(),
+		check('password', "Empty Password").notEmpty()
+	],
+	userController.registration);
 router.post(
 	"/login", 
 	[

@@ -12,4 +12,5 @@ describe('E2E-tests: USER getUsers [GET /api/user/users]', function () {
         //Expected result: Status 403 + "Authorised Error!"
         expect(res.body.message).toEqual(USER_MESSAGES.authError);
     });
+    //TODO: case delete exist user by ID
 });
