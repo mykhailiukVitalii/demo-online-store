@@ -29,6 +29,15 @@ module.exports = {
           role: "ADMIN",
           createdAt: new Date(),
           updatedAt: new Date(),
+        },
+        {
+          id: 3,
+          email: "user111@gmail.com",
+          password: await generatePwd("123456789"),
+          is_pwd_restored: false,
+          role: "USER",
+          createdAt: new Date(),
+          updatedAt: new Date(),
         }
       ],
       {}

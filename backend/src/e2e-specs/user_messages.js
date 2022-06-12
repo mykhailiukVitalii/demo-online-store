@@ -5,7 +5,8 @@ const USER_MESSAGES = {
 	notFound: "User not found!",
 	alreadyRestored: "Password is already updated. User has only one chance for updating!",
 	authError: "Authorised Error!",
-	existUser: "User with this email already exist!"
+	existUser: "User with this email already exist!",
+	wrongAccess: "User does not have access."
 }
 
 module.exports = USER_MESSAGES;

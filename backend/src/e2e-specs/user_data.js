@@ -19,6 +19,10 @@ const USER_CREDENTIALS = {
     newUser: {
         email: "user777@gmail.com",
         password: "123456789"
+    },
+    exist2: {
+        email: "user111@gmail.com",
+        password: "123456789"
     }
 }
 

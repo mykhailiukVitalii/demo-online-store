@@ -16,7 +16,7 @@ describe('E2E-tests: USER login [POST /api/user/restore]', function () {
             .send(noEmailUser)
             .set('Accept', 'application/json')
             .expect(StatusCodes.BAD_REQUEST);
-        //Expected result: Status 400 + "Password or Email does not exist in the request body."
+        //Expected result: Status 400 + message
         expect(res.body.message).toEqual(USER_MESSAGES.invalidPwdEmail);
     });
     it('Should return status 404 if user does not exist', async () => {
@@ -25,8 +25,8 @@ describe('E2E-tests: USER login [POST /api/user/restore]', function () {
             .send(USER_CREDENTIALS.invalid)
             .set('Accept', 'application/json')
             .expect(StatusCodes.NOT_FOUND);
-        //Expected result: Status 404 + "User not yet created."
-        expect(res.body.message).toEqual(USER_MESSAGES.notFound);
+        //Expected result: Status 404 + message
+        expect(res.body.message).toEqual(USER_MESSAGES.noUser);
     });
     it('Should return status 400 if password is incorrect', async () => {
         const res = await supertest("http://localhost:5054/api/user")
@@ -54,14 +54,8 @@ describe('E2E-tests: USER login [POST /api/user/restore]', function () {
             .send(USER_CREDENTIALS.restored)
             .set('Accept', 'application/json')
             .expect(StatusCodes.BAD_REQUEST);
-        //Expected result: Status 200 + {user: email, token: ${uniquetoken}}
+        //Expected result: Status 400 + message
         expect(res.body.message).toEqual(USER_MESSAGES.alreadyRestored);
     });
 });
 //TODO: WIP '{"message":{"name":"SequelizeConnectionRefusedError","parent":{"errno":-111,
-
-/*
-перед запуском делать миграцию в БД или сетить нужными значениям
---проганять БД
-дропать полность БД
-*/
