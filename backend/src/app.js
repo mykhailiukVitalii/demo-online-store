@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const router = require("./routes/index")
-const homeRouter = require("./routes/home") //TODO: need to fix
+// const homeRouter = require("./routes/home") //TODO: need to fix
 const errorHandler = require("./middlewares/errorHandlingMiddleware")
 
 //APP 
