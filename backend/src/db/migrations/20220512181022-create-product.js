@@ -17,9 +17,6 @@ module.exports = {
       img: {
         type: Sequelize.STRING
       },
-      brand_id: {
-        type: Sequelize.INTEGER
-      },
       comment_id: {
         type: Sequelize.INTEGER
       },

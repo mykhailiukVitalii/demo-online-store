@@ -14,7 +14,6 @@ const Product = sequelize.define("product", {
     name: { type: DataTypes.STRING },    
     price: { type: DataTypes.INTEGER, allowNull: false }, //TODO: почитать инфу про аловнал и тд...
     img: { type: DataTypes.STRING },
-    brand_id: { type: DataTypes.INTEGER },
     comment_id: { type: DataTypes.INTEGER }
 });
 

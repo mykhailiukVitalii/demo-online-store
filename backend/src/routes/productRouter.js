@@ -9,7 +9,7 @@ router.get("/products", productController.getProducts);
 router.get("/:id", productController.getProduct);
 //POST methods
 router.post(
-	"/newproduct",
+	"/new",
 	[
 		check('name', "Name field").notEmpty(),
 		check('price', "Price field").notEmpty(),
@@ -17,5 +17,21 @@ router.post(
 	],
 	roleMiddleware(["ADMIN"]),
 	productController.createProduct);
+//PUT method
+router.put(
+	"/update",
+	[
+		check('id', "ID field").notEmpty(),
+		check('name', "Name field").notEmpty(),
+		check('price', "Price field").notEmpty(),
+		check('img', "img field").notEmpty(),
+	],
+	roleMiddleware(["ADMIN"]),
+	productController.updateProduct);
+//DELETE method
+router.delete(
+	"/delete",
+	roleMiddleware(["ADMIN"]),
+	productController.deleteProduct);
 
 module.exports = router;

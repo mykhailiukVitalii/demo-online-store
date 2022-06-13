@@ -39,19 +39,75 @@ const ApiError = require("../errors/ApiError");
     }
 };
 /**
+ * Check Product in the system by id
+ * @param {string} id - product id.
+ * @returns {Promise} Promise object represents product
+ */
+ const checkNewProductById = async (id) => {
+    const prCandidate = await Product.findOne({
+        where: {id}
+    });
+
+    if(!prCandidate) {
+        throw ApiError.notFound("Product with this ID does not found!");
+    }
+
+    return prCandidate;
+};
+/**
  * CREATE new Product
  * @param {object} data - product data.
  * @returns {Promise} Promise object represents user
  */
  const cteateProduct = async (data) => {
     //Check candidate
-    await checkNewProductByName(data.name);
+    const { name } = data;
+    await checkNewProductByName(name);
 
     return await Product.create(data);
 };
+/**
+ * Update exist Product
+ * @param {object} data - new product data.
+ * @returns {Promise} Promise object ...
+ */
+const updateProductById = async (data) => {
+    // //Check candidate
+    const { id } = data;
+    await checkNewProductById(id);
+    //Updating
+    const updatedProduct = await Product.update(
+        data,
+        { where: {id}}
+    );
+
+    if(!updatedProduct) {
+        throw ApiError.badRequest("Product failed to updates.")
+    }
+
+    return updatedProduct;
+}
+
+/**
+ * Delete exist Product by ID
+ * @param {object} id - product id.
+ * @returns {Promise} Promise object ...
+ */
+ const deleteProduct = async (productId) => {
+    //Check candidate
+    await checkNewProductById(productId);
+    //Delete
+    return await Product.destroy({
+        where: {
+            id: productId
+        }
+    });
+}
 
 module.exports = {
     getProductById,
     getProducts,
-    cteateProduct
+    cteateProduct,
+    deleteProduct,
+    updateProductById
 }

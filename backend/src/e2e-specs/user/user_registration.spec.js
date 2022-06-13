@@ -53,5 +53,6 @@ describe('E2E-tests: USER login [POST /api/user/registration]', function () {
         expect(res.body).toHaveProperty('role', ADMIN_CREDENTIALS.newAdmin.role);
         expect(res.body).toHaveProperty('token');
     });
+    //TODO: WIP - case when we delete created user.
 });
 //TODO: WIP '{"message":{"name":"SequelizeConnectionRefusedError","parent":{"errno":-111, - БД переключается, глянуть

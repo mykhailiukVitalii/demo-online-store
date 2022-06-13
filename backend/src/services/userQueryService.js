@@ -97,7 +97,7 @@ const updateUserByEmail = async (email, opts) => {
     );
 
     if(!updatedUser) {
-        throw ApiError.badRequest("User failed to update");
+        throw ApiError.badRequest("User failed to updates.");
     }
 
     return updatedUser;
@@ -142,7 +142,6 @@ const getAllUsers = async() => {
     if(users.length < 1) {
         throw ApiError.badRequest("No user is registered in the system yet");
     }
-    console.log("LIST", users)
 
     return users
 }
