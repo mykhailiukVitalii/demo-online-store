@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "cross-env NODE_ENV=test jest ./src/e2e-specs/user/*.spec.js ./src/e2e-specs/product/*.spec.js --testTimeout 30000",
+    "test": "cross-env NODE_ENV=test jest ./src/e2e-specs/user/*.spec.js ./src/e2e-specs/product/*.spec.js ./src/e2e-specs/comment/*.spec.js --testTimeout 30000",
     "test:e2e": "jest ./src/e2e-specs/user/*.spec.js --testTimeout 30000",
     "test:e2e-product": "jest ./src/e2e-specs/product/*.spec.js --testTimeout 30000",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",

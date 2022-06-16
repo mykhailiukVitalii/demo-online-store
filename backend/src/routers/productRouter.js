@@ -7,6 +7,7 @@ const { check } = require("express-validator");
 //GET methods
 router.get("/products", productController.getProducts);
 router.get("/:id", productController.getProduct);
+router.get("/:id/comments", productController.getProductComments);
 //POST methods
 router.post(
 	"/new",

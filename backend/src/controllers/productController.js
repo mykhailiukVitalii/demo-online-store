@@ -1,7 +1,8 @@
 const ApiError = require("../errors/ApiError");
 const { validationResult } = require("express-validator");
 
-const { getProductById, getProducts, cteateProduct, updateProductById, deleteProduct } = require("../services/productQueryService");
+const { getProductById, getProducts, cteateProduct, updateProductById,
+        deleteProduct, getProductComments } = require("../services/productQueryService");
 
 class ProductController {
     /**
@@ -49,8 +50,8 @@ class ProductController {
                 return next(ApiError.badRequest(`Next product fields are empty: ${errorsFullMsg}. Check request body.`));
             }
             
-            const { name, price, img, comment_id } = req.body;            
-            const newProduct = await cteateProduct({ name, price, img, comment_id });
+            const { name, price, img } = req.body;            
+            const newProduct = await cteateProduct({ name, price, img });
 
             return res.status(201).json(newProduct);
         }
@@ -90,6 +91,21 @@ class ProductController {
             await deleteProduct(id);
 
             return res.status(204).send();
+        }
+        catch (e) {
+            return next(e);
+        }
+    }
+    /**
+     * Get product comments
+     */
+    async getProductComments(req, res, next) {
+        try {
+            const { id } = req.params;
+
+            const data = await getProductComments(id);
+
+            return res.status(200).json(data);
         }
         catch (e) {
             return next(e);

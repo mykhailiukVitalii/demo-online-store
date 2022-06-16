@@ -1,4 +1,4 @@
-const { Product } = require("../db/models/models");
+const { Product , Comment } = require("../db/models/models");
 const ApiError = require("../errors/ApiError");
 
 /**
@@ -43,8 +43,9 @@ const ApiError = require("../errors/ApiError");
  * @param {string} id - product id.
  * @returns {Promise} Promise object represents product
  */
- const checkNewProductById = async (id) => {
-    const prCandidate = await Product.findOne({
+ const checkProductById = async (id) => {
+     //TODO: refactoring
+    const prCandidate = await Product.findOne({ //.findByPk(2) получим пользователя с id=2
         where: {id}
     });
 
@@ -74,7 +75,7 @@ const ApiError = require("../errors/ApiError");
 const updateProductById = async (data) => {
     // //Check candidate
     const { id } = data;
-    await checkNewProductById(id);
+    await checkProductById(id);
     //Updating
     const updatedProduct = await Product.update(
         data,
@@ -95,7 +96,7 @@ const updateProductById = async (data) => {
  */
  const deleteProduct = async (productId) => {
     //Check candidate
-    await checkNewProductById(productId);
+    await checkProductById(productId);
     //Delete
     return await Product.destroy({
         where: {
@@ -104,10 +105,33 @@ const updateProductById = async (data) => {
     });
 }
 
+/**
+ * Delete exist Product by ID
+ * @param {object} id - product id.
+ * @returns {Promise} Promise object ...
+ */
+ const getProductComments = async (productId) => {
+    //Check candidate
+    await checkProductById(productId);
+    //Get ALL comments
+    const comment = await Product.findAll({
+        include: [{
+            model: Comment,
+            as: "comment"
+        }],
+        where: { id: productId }
+    });
+    
+    return comment[0].comment
+}
+
+
+
 module.exports = {
     getProductById,
     getProducts,
     cteateProduct,
     deleteProduct,
-    updateProductById
+    updateProductById,
+    getProductComments
 }

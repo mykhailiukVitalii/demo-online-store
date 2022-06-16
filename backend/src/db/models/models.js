@@ -13,8 +13,7 @@ const Product = sequelize.define("product", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING },    
     price: { type: DataTypes.INTEGER, allowNull: false }, //TODO: почитать инфу про аловнал и тд...
-    img: { type: DataTypes.STRING },
-    comment_id: { type: DataTypes.INTEGER }
+    img: { type: DataTypes.STRING }
 });
 
 //TODO: WIP - добавить Дескрипшн к продукту и убрать лишнюю сущность Продукт инфо
@@ -25,26 +24,32 @@ const Product = sequelize.define("product", {
 //     description: { type: DataTypes.STRING, allowNull: false },
 // }); 
 
-// const Comment = sequelize.define("comment", {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//     user_id: { type: DataTypes.INTEGER },
-//     product_id: { type: DataTypes.INTEGER },
-//     comment: { type: DataTypes.STRING, allowNull: false}
-// });
+const Comment = sequelize.define("comment", {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    // user_id: { type: DataTypes.INTEGER },
+    // product_id: { type: DataTypes.INTEGER },
+    comment: { type: DataTypes.TEXT, allowNull: false}
+});
 // //TODO: прочитать про секвалайз документацию
 // Product.hasOne(ProductInfo);
 // ProductInfo.belongsTo(Product);
 
-// Product.hasMany(Comment);
-// Comment.belongsTo(Product);
+Product.hasMany(Comment, { 
+    foreignKey: "product_id",
+    as: "comment",
+    onDelete: "cascade" 
+});
+Comment.belongsTo(Product, {
+    foreignKey: "product_id",
+    as: "product"
+});
 
 // User.hasMany(Comment);
 // Comment.belongsTo(User);
-// описать все сущности с диаграммы используя аттрибуты Sequalize
 
 module.exports = {
     User,
     Product,
+    Comment
     // ProductInfo,
-    // Comment
 }
