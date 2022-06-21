@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 export default class ProductStore {
     constructor() {
-        this._comments = [
+        this._comment = [
             {
                 id: 1,
                 product_id: 1,
@@ -19,13 +19,25 @@ export default class ProductStore {
                 id: 1,
                 name: "Iphone 13",
                 price: 959,
-                img: "iphone13.jpg"
+                img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-01.jpg"
             },
             {
                 id: 2,
                 name: "Iphone 13 PRO",
                 price: 1113,
-                img: "iphone13-pro.jpg"
+                img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-3.jpg"
+            },
+            {
+                id: 3,
+                name: "Iphone 12",
+                price: 818,
+                img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-12-r1.jpg"
+            },
+            {
+                id: 4,
+                name: "Iphone 12 PRO",
+                price: 909,
+                img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-12-pro-max-1.jpg"
             }
         ];
 
@@ -35,13 +47,13 @@ export default class ProductStore {
     get products() {
         return this._products;
     }
-    get comments() {
-        return this._comments;
+    get comment() {
+        return this._comment;
     }
     setProduct(products) {
         this._products = products;
     }
-    setComment(comments) {
-        this._comments = comments;
+    setComment(comment) {
+        this._comment = comment;
     }
 }

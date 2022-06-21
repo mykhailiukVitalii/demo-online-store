@@ -23,7 +23,7 @@ const Shop = observer(() => {
   //       device.setTotalCount(data.count)
   //   })
   // }, [device.page, device.selectedType, device.selectedBrand,]);
-
+// TODO: USE component which can filtered by comments/no comments
   return (
     <Container>
       <Row className="mt-2">

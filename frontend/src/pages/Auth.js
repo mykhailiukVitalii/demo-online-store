@@ -50,7 +50,7 @@ const Auth = observer(() => {
             onChange={e => setPassword(e.target.value)}
             type="password"
           />
-          <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
+          <Row className="d-flex justify-content-between align-items-center mt-3 pl-3 pr-3">
             {isLogin ?
               <div>
                 Don't have an account? <NavLink to={REGISTRATION_ROUTE}>Sign In!</NavLink>
@@ -62,6 +62,9 @@ const Auth = observer(() => {
             }
             <Button
               variant={"outline-success"}
+              style={
+                { marginTop: "20px" }
+              }
               // onClick={click}
             >
               {isLogin ? 'Login' : 'Sign In'}
