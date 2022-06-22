@@ -1,17 +1,23 @@
 import React, { useContext, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { Card, Container, Form, Row, Button } from "react-bootstrap";
 import { Context } from "../index";
 import { REGISTRATION_ROUTE, LOGIN_ROUTE } from "../utils/contstans";
+import { useNavigate } from "react-router";
+import { login, registration } from '../http/userAPI';
+import { SHOP_ROUTE } from '../utils/contstans';
 
 const Auth = observer(() => {
   const { user } = useContext(Context);
   const location = useLocation();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const isLogin = location.pathname === LOGIN_ROUTE;
+  //HOOK state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [error, setError] = useState(null)
 
   // const click = async () => {
   //   try {
@@ -28,6 +34,27 @@ const Auth = observer(() => {
   //     alert(e.response.data.message)
   //   }
   // }
+  const click = async () => {
+    try {
+      let data;
+
+      if (isLogin) {      
+        data = await login(email, password); //TODO: refactoring ? :        
+        setError(null);
+      } else {      
+        data = await registration(email, password);
+        setError(null);
+      }
+      user.setUser(user);
+      user.setIsAuth(true);
+      navigate(SHOP_ROUTE);
+
+    }
+    catch(err) {
+      console.log("ERROR", err.response.data.message)
+      setError(err.response.data.message);
+    }
+  }
 
   return (
     <Container
@@ -50,7 +77,13 @@ const Auth = observer(() => {
             onChange={e => setPassword(e.target.value)}
             type="password"
           />
+          <div data-qa="login-error" style={{color: "red"}}>
+            {
+              error ? "Ooops: " + error : ""
+            }
+          </div>
           <Row className="d-flex justify-content-between align-items-center mt-3 pl-3 pr-3">
+
             {isLogin ?
               <div>
                 Don't have an account? <NavLink to={REGISTRATION_ROUTE}>Sign In!</NavLink>
@@ -65,8 +98,9 @@ const Auth = observer(() => {
               style={
                 { marginTop: "20px" }
               }
-              // onClick={click}
+              onClick={click}
             >
+          
               {isLogin ? 'Login' : 'Sign In'}
             </Button>
           </Row>

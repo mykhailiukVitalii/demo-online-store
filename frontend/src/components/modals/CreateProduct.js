@@ -9,7 +9,7 @@ const CreateDevice = observer(({show, onHide}) => {
     const {product} = useContext(Context);
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
-    const [img, setImg] = useState(''); 
+    // const [img, setImg] = useState(''); 
     const [comment, setComment] = useState([]);
 
     const addComment = () => {
@@ -56,12 +56,12 @@ const CreateDevice = observer(({show, onHide}) => {
                         placeholder="Enter product price..."
                         type="number"
                     />
-                    <Form.Control
+                    {/* <Form.Control
                         value={img}
                         onChange={e => setPrice(Number(e.target.value))}
                         className="mt-3"
                         placeholder="Enter product image link..."
-                    />
+                    /> */}
                     <hr/>
                     <Button
                         variant={"outline-dark"}
