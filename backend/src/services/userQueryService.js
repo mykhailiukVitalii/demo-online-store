@@ -145,11 +145,20 @@ const getAllUsers = async() => {
 
     return users
 }
+/**
+ * Check user
+ */
+const checkUser = (user) => {
+    const { id, email, role } = user;
+    
+    return  generateJwt(id, email, role);
+}
 
 module.exports = {
     getUserByEmail,
     createUser,
     loginUser,
     setPassword,
-    getAllUsers
+    getAllUsers,
+    checkUser
 }

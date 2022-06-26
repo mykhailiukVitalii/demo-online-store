@@ -1,7 +1,7 @@
 const ApiError = require("../errors/ApiError");
 const { validationResult } = require("express-validator");
 
-const { createUser, loginUser, setPassword, getAllUsers } = require("../services/userQueryService");
+const { createUser, loginUser, setPassword, getAllUsers, checkUser } = require("../services/userQueryService");
 //TODO: WIP - "Password or Email does not exist in the request body." вынести в константу и переиспользовать в тестах
 
 class UserController {
@@ -69,6 +69,15 @@ class UserController {
         catch(e) {
             return next(e);
         }
+    }
+    /**
+     * Check if the user exists in the system
+     */
+    async check(req, res, next) {
+        const { user } = req
+        const token = checkUser(user)
+
+        return res.status(200).json({token})
     }
     /**
      * Get all users(list)

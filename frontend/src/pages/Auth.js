@@ -19,21 +19,6 @@ const Auth = observer(() => {
 
   const [error, setError] = useState(null)
 
-  // const click = async () => {
-  //   try {
-  //     let data;
-  //     if (isLogin) {
-  //       data = await login(email, password);
-  //     } else {
-  //       data = await registration(email, password);
-  //     }
-  //     user.setUser(user)
-  //     user.setIsAuth(true)
-  //     history.push(SHOP_ROUTE)
-  //   } catch (e) {
-  //     alert(e.response.data.message)
-  //   }
-  // }
   const click = async () => {
     try {
       let data;

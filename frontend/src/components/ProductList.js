@@ -6,6 +6,7 @@ import ProductItem from "./ProductItem";
 
 const ProductList = observer(() => {
     const { product } = useContext(Context)
+    console.log("product", product)
 
     return (
         <Row className="d-flex">

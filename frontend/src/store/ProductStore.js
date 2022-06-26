@@ -15,30 +15,30 @@ export default class ProductStore {
             }
         ];
         this._products = [
-            {
-                id: 1,
-                name: "Iphone 13",
-                price: 959,
-                img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-01.jpg"
-            },
-            {
-                id: 2,
-                name: "Iphone 13 PRO",
-                price: 1113,
-                img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-3.jpg"
-            },
-            {
-                id: 3,
-                name: "Iphone 12",
-                price: 818,
-                img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-12-r1.jpg"
-            },
-            {
-                id: 4,
-                name: "Iphone 12 PRO",
-                price: 909,
-                img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-12-pro-max-1.jpg"
-            }
+            // {
+            //     id: 1,
+            //     name: "Iphone 13",
+            //     price: 959,
+            //     img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-01.jpg"
+            // },
+            // {
+            //     id: 2,
+            //     name: "Iphone 13 PRO",
+            //     price: 1113,
+            //     img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-3.jpg"
+            // },
+            // {
+            //     id: 3,
+            //     name: "Iphone 12",
+            //     price: 818,
+            //     img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-12-r1.jpg"
+            // },
+            // {
+            //     id: 4,
+            //     name: "Iphone 12 PRO",
+            //     price: 909,
+            //     img: "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-12-pro-max-1.jpg"
+            // }
         ];
 
         makeAutoObservable(this);
@@ -50,10 +50,10 @@ export default class ProductStore {
     get comment() {
         return this._comment;
     }
-    setProduct(products) {
+    setProducts(products) {
         this._products = products;
     }
-    setComment(comment) {
+    setComments(comment) {
         this._comment = comment;
     }
 }

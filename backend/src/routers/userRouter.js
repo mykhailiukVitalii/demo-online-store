@@ -1,12 +1,12 @@
 const Router = require("express");
 const router = new Router();
 const userController = require("../controllers/userController");
-// const authMiddleware = require("../middlewares/authMiddleware");
+const authMiddleware = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
 const { check } = require("express-validator");
 
 //GET methods
-// router.get("/auth", authMiddleware, userController.checkUser); //TODO: WIP
+router.get("/auth", authMiddleware, userController.check);
 router.get("/users", roleMiddleware(["ADMIN"]), userController.getUsers);
 //POST methods
 router.post(

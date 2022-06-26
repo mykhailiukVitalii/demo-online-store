@@ -12,6 +12,9 @@ const NavBar = observer(() => {
     const logOut = () => {
         user.setUser({});
         user.setIsAuth(false);
+        localStorage.clear();
+        
+        return navigate(SHOP_ROUTE);
     };
     const goToAdmin = () => {
         return navigate(ADMIN_ROUTE);
@@ -39,8 +42,7 @@ const NavBar = observer(() => {
                             ?
                             <Nav className="md-auto" style={{ color: "white" }}>
                                 <Navbar.Text>
-                                    {/* TODO: set using user.name */}
-                                    Signed in as: <a>Demo User</a> 
+                                    Signed in as: <a>{user.name}</a> 
                                 </Navbar.Text>
                                 <Button 
                                     variant={"outline-dark"}

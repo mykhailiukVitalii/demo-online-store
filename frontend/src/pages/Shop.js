@@ -5,17 +5,21 @@ import Col from "react-bootstrap/Col";
 import { Context } from "../index";
 import {observer} from "mobx-react-lite";
 import ProductList from "../components/ProductList";
-// import {fetchBrands, fetchDevices, fetchTypes} from "../http/deviceAPI";
+import {fetchProducts} from "../http/productAPI";
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
 
-  // useEffect(() => {
-  //   fetchDevices(null, null, 1, 2).then(data => {
-  //       device.setDevices(data.rows)
-  //       device.setTotalCount(data.count)
-  //   })
-  // }, []);
+  useEffect(() => {
+    // fetchProduct(null, 1, 4).then(data => {
+    //     device.setDevices(data.rows)
+    //     device.setTotalCount(data.count)
+    // })
+    fetchProducts().then(data => {
+      console.log("data", data)
+      product.setProducts(data)
+    })
+  }, []);
 
   // useEffect(() => {
   //   fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, 2).then(data => {
