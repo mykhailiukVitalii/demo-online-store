@@ -9,7 +9,7 @@ describe('E2E-tests: USER getUsers [GET /api/product/products]', function () {
             .get('/products')
             .expect(StatusCodes.OK);
         //Expected result: Status 200 + list
-        expect(res.body).toHaveLength(2);
+        expect(res.body).toHaveLength(4);
     });
     it('GET Specific product by :id = status 200 + name and price', async () => {
         const res = await supertest("http://localhost:5054/api/product")
