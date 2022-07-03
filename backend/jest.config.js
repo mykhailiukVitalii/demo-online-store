@@ -1,7 +1,8 @@
 const config = {
-  bail: 1,
+  bail: 10,
+  testEnvironment: "node",
   verbose: true,
-  //TODO: WIP use suites
+  testTimeout: 30000
 };
 
 module.exports = config;
