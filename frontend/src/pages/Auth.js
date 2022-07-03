@@ -54,6 +54,7 @@ const Auth = observer(() => {
             placeholder="Enter your email..."
             value={email}
             onChange={e => setEmail(e.target.value)}
+            id="data-qa_auth_email-input"
           />
           <Form.Control
             className="mt-3"
@@ -61,16 +62,16 @@ const Auth = observer(() => {
             value={password}
             onChange={e => setPassword(e.target.value)}
             type="password"
+            id="data-qa_auth_pwd-input"
           />
-          <div data-qa="login-error" style={{color: "red"}}>
+          <div id="data-qa_auth_login-error" style={{color: "red"}}>
             {
               error ? "Ooops: " + error : ""
             }
           </div>
           <Row className="d-flex justify-content-between align-items-center mt-3 pl-3 pr-3">
-
             {isLogin ?
-              <div>
+              <div id="data-qa_auth-msg">
                 Don't have an account? <NavLink to={REGISTRATION_ROUTE}>Sign In!</NavLink>
               </div>
               :
@@ -84,6 +85,7 @@ const Auth = observer(() => {
                 { marginTop: "20px" }
               }
               onClick={click}
+              id="data-qa_auth_success-btn"
             >
           
               {isLogin ? 'Login' : 'Sign In'}

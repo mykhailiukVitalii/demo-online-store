@@ -1,0 +1,16 @@
+{
+  "name": "user-stories-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:smoke-user-stories": "npx playwright test --reporter=dot"
+  },
+  "keywords": ["ui_tests"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^7.3.0",
+    "@playwright/test": "^1.22.2"
+  }
+}
