@@ -1,5 +1,11 @@
 #  [EN] If you open this page => Pls, click on the "star" :)
 
+# Technology:
+- dev tools: MERN stack = MySQL + Express + REACT.js + Node.js
+- docker >= 20.10.7, 20.10.10 recommenced
+- docker-compose >= 1.29.2
+- testing tools: e2e-testing(supertest.io) + UI testing(playwright.dev)
+
 ## Start Server
 
 To start the Server(bakcend) you need to execute the command: 
