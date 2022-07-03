@@ -37,6 +37,7 @@ const NavBar = observer(() => {
                             }
                         }
                         onClick={goToHome}
+                        id="data-qa_navbar_nav-link"
                         >DEMO Store</Nav.Link>
                         {user.isAuth
                             ?
@@ -48,16 +49,22 @@ const NavBar = observer(() => {
                                     variant={"outline-dark"}
                                     style={{ marginLeft: "20px" }}
                                     onClick={goToAdmin}
+                                    id="data-qa_navbar_admin-panel"
                                 >Admin Panel</Button>
                                 <Button 
                                     variant={"outline-dark"}
                                     style={{ marginLeft: 20 }}
                                     onClick={logOut}
+                                    id="data-qa_navbar_logout"
                                 >Logout</Button>
                             </Nav>
                             :
                             <Nav className="ml-auto" style={{ color: "white" }}>
-                                <Button variant={"outline-dark"} onClick={goToLogin}>Login</Button>
+                                <Button 
+                                    variant={"outline-dark"}
+                                    onClick={goToLogin}
+                                    id="data-qa_navbar_login"
+                                >Login</Button>
                             </Nav>
                         }                
                 </Container>
