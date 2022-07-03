@@ -151,7 +151,8 @@ const getAllUsers = async() => {
 const checkUser = (user) => {
     const { id, email, role } = user;
     
-    return  generateJwt(id, email, role);
+    return generateJwt(id, email, role); 
+    //TODO: return token + role for checkimg   
 }
 
 module.exports = {

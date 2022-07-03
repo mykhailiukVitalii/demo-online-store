@@ -1,35 +1,47 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
-import {Button, Dropdown, Form, Row, Col} from "react-bootstrap";
-import {Context} from "../../index";
-// import {createProduct, fetchBrands, fetchDevices, fetchTypes} from "../../http/deviceAPI";
+import {Button, Form } from "react-bootstrap";
+// import {Context} from "../../index";
+import {createProduct} from "../../http/productAPI";
 import { observer } from 'mobx-react-lite';
 
 const CreateDevice = observer(({show, onHide}) => {
-    const {product} = useContext(Context);
+    // const { product } = useContext(Context);
+    // const {comment} = useContext(Context);
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
-    // const [img, setImg] = useState(''); 
-    const [comment, setComment] = useState([]);
+    const [img, setImg] = useState('');
+    const [error, setError] = useState(null)
 
-    const addComment = () => {
-        setComment([...comment, {comment: '', number: Date.now()}]);
-    };
-    const removeComment = (number) => {
-        setComment(comment.filter(i => i.number !== number));
-    };
-    const changeComment = (key, value, number) => {
-        setComment(comment.map(i => i.number === number ? {...i, [key]: value} : i))
-    };
-
-    // const addProduct = () => {
-    //     const formData = new FormData();
-    //     formData.append('name', name)
-    //     formData.append('price', `${price}`)
-    //     formData.append('img', file)
-    //     formData.append('comment', JSON.stringify(comment))
-    //     createProduct(formData).then(data => onHide())
+    //TODO: WIP if you have free time
+    // const addComment = () => {
+    //     try {           
+    //         await createComment({name, price, img});
+    //     }
+    //     catch(err) {
+    //         console.log("ERROR", err.response.data.message)
+    //         setError(err.response.data.message);
+    //     }
     // };
+
+    const addProduct = async () => {
+        try {           
+            const data = await createProduct({name, price, img});
+
+            return (data) ? onHide() : show();
+        }
+        catch(err) {
+            console.log("ERROR", err.response.data.message)
+            setError(err.response.data.message);
+        }
+    };
+
+    const clearError = async () => {
+        setError("");
+
+        return onHide();
+    };
+
     return (
         <Modal
             show={show}
@@ -53,23 +65,24 @@ const CreateDevice = observer(({show, onHide}) => {
                         value={price}
                         onChange={e => setPrice(Number(e.target.value))}
                         className="mt-3"
-                        placeholder="Enter product price..."
+                        placeholder="Enter price..."
                         type="number"
                     />
-                    {/* <Form.Control
+                    <Form.Control
                         value={img}
-                        onChange={e => setPrice(Number(e.target.value))}
+                        onChange={e => setImg(e.target.value)}
                         className="mt-3"
-                        placeholder="Enter product image link..."
-                    /> */}
+                        placeholder="Enter image link..."
+                    />
                     <hr/>
-                    <Button
+                    {/* TODO: WIP if you have free time */}
+                    {/* <Button
                         variant={"outline-dark"}
-                        onClick={addComment}
+                        // onClick={addComment}
                     >
                         Add new comment
-                    </Button>
-                    {comment.map(i =>
+                    </Button>                     */}
+                    {/* {comment.map(i =>
                         <Row className="mt-4" key={i.number}>
                             <Col md={9}>
                                 <Form.Control
@@ -87,13 +100,18 @@ const CreateDevice = observer(({show, onHide}) => {
                                 </Button>
                             </Col>
                         </Row>
-                    )}
+                    )} */}
                 </Form>
             </Modal.Body>
+            <div data-qa="create-product-error" style={{color: "red", textAlign: "center", marginBottom: "15px"}}>
+                {
+                    error ? "Ooops: " + error : ""
+                }
+            </div>
             <Modal.Footer>
-                <Button variant="outline-danger" onClick={onHide}>Close</Button>
+                <Button variant="outline-danger" onClick={clearError}>Close</Button>
                 <Button variant="outline-success" 
-                    // onClick={addDevice}
+                    onClick={addProduct}
                 >
                     Create
                 </Button>

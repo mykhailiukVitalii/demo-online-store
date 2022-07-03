@@ -1,15 +1,12 @@
 import {$authHost, $host} from "./index";
 
-export const createProduct = async (device) => {
-    const {data} = await $authHost.post('api/product', device);
+export const createProduct = async (product) => {
+    const {data} = await $authHost.post('api/product/new', product);
 
     return data
 }
 
 export const fetchProducts = async (commentId, page, limit= 8) => {
-    // const {data} = await $host.get('api/product/products', {params: {
-    //         commentId, page, limit
-    //     }});
     const {data} = await $host.get('api/product/products');
 
     return data
@@ -22,12 +19,12 @@ export const fetchOneProduct = async (id) => {
 }
 
 export const fetchProductComments = async (id) => {
-    const {data} = await $host.get('api/product' + id + "comments");
+    const {data} = await $host.get('api/product/' + id + '/comments');
 
     return data
 }
 
-//TODO:WIP 
+//TODO:WIP if you have free time
 // export const createComment = async (type) => {
 //     const {data} = await $authHost.post('api/type', type)
 //     return data

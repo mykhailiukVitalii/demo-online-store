@@ -4,7 +4,8 @@ export default class UserStore {
     constructor() {
         this._isAuth = false;
         this._user = {};
-        this._name = "Demo User"; //TODO: how move to Sign IN
+        this._isAdmin = false;
+        this._name = "Demo user"; //TODO: how move to Sign IN
 
         makeAutoObservable(this);
     }
@@ -18,6 +19,9 @@ export default class UserStore {
     get name() {
         return this._name;
     }
+    get isAdmin() {
+        return this._isAdmin;
+    }
     setIsAuth(bool) {
         this._isAuth = bool;
     }
@@ -26,5 +30,8 @@ export default class UserStore {
     }
     setName(name) {
         this._name = name;
+    }
+    setIsAdmin(bool) {
+        this._isAdmin = bool;
     }
 }

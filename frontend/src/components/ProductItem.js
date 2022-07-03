@@ -12,13 +12,12 @@ const ProductItem = ({product}) => {
     }
 
     return (
-        <Col md={3} className={"mt-3"} onClick={openProduct}>
+        <Col md={4} className={"mt-3"} onClick={openProduct}>
             <Card style={{width: 150, cursor: 'pointer'}} border={"light"}>
-                {/* <Image width={150} height={150} src={process.env.REACT_APP_API_URL + product.img}/> */}
-                <Image width={200} height={250} src={product.img}/>
+                <Image width={280} height={350} src={product.img}/>
                 <div style={{textAlign: "center", marginTop: "20px", marginLeft: "auto"}}>
                     <div>{product.name}</div>
-                    <div className={"text-black-50 mt-1"}>
+                    <div className={"text-black-50 mt-2"}>
                         <div>Price: {product.price} $</div>
                     </div>
                 </div>                
